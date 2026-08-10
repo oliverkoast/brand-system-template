@@ -1,0 +1,5 @@
+# Rendered output. Regenerate with kit/render.sh and kit/export-frames.sh.
+out/
+
+# macOS
+.DS_Store

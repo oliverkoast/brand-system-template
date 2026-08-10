@@ -1,0 +1,52 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "SAMPLE tokens for the fictional brand 'Northlight'. Replace every value with your own, then delete this sentence. Values here are illustrative; in a real system every one of them traces to a source document (a palette sheet, a type sheet) and anything unconfirmed carries a $verify note.",
+
+  "color": {
+    "$description": "Named palette. Layouts consume the roles below, never these directly.",
+    "white":  { "$value": "#FFFFFF", "$type": "color" },
+    "paper":  { "$value": "#F6F3EE", "$type": "color", "$description": "Default ground." },
+    "sand":   { "$value": "#E3D9CB", "$type": "color" },
+    "beam":   { "$value": "#E8A13C", "$type": "color", "$description": "Primary accent." },
+    "harbour":{ "$value": "#3B5A72", "$type": "color", "$description": "Cool accent." },
+    "slate":  { "$value": "#2E3742", "$type": "color" },
+    "ink":    { "$value": "#1B2430", "$type": "color", "$description": "Default type and dark surfaces." }
+  },
+
+  "role": {
+    "$description": "Semantic roles. Mirrors styles.css.",
+    "bg":        { "$value": "{color.paper}", "$type": "color" },
+    "bg-alt":    { "$value": "{color.white}", "$type": "color" },
+    "bg-dark":   { "$value": "{color.ink}",   "$type": "color" },
+    "text":      { "$value": "{color.ink}",   "$type": "color" },
+    "text-soft": { "$value": "{color.slate}", "$type": "color" },
+    "reverse":   { "$value": "{color.white}", "$type": "color", "$description": "Type on texture, ink, or harbour ONLY. Never on paper." },
+    "accent":    { "$value": "{color.beam}",  "$type": "color" },
+    "accent-cool":{ "$value": "{color.harbour}", "$type": "color" }
+  },
+
+  "font": {
+    "$description": "Two families, both open-source (SIL OFL) and self-hosted as real variable .ttf files in /fonts. Swap for your own; if yours are licensed, confirm the licence covers web and email embedding BEFORE anything ships.",
+    "family": {
+      "display": { "$value": "Space Grotesk", "$type": "fontFamily", "$description": "Headlines." },
+      "text":    { "$value": "Sora",          "$type": "fontFamily", "$description": "Body, labels." }
+    },
+    "weight":   { "display": { "$value": 700, "$type": "fontWeight" },
+                  "text":    { "$value": 400, "$type": "fontWeight" } },
+    "tracking": { "display": { "$value": "-0.04em", "$type": "dimension" },
+                  "text":    { "$value": "-0.01em", "$type": "dimension" } },
+    "leading":  { "display": { "$value": 0.95, "$type": "number" },
+                  "text":    { "$value": 1.5,  "$type": "number" } }
+  },
+
+  "space": {
+    "$description": "8pt scale.",
+    "1": { "$value": "4px",  "$type": "dimension" },
+    "2": { "$value": "8px",  "$type": "dimension" },
+    "3": { "$value": "16px", "$type": "dimension" },
+    "4": { "$value": "24px", "$type": "dimension" },
+    "5": { "$value": "40px", "$type": "dimension" },
+    "6": { "$value": "64px", "$type": "dimension" },
+    "7": { "$value": "96px", "$type": "dimension" }
+  }
+}

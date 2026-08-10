@@ -1,0 +1,56 @@
+{
+  "$description": "The format menu. To make a piece, name the format here and the correct canvas, lockup, and margins are selected deterministically. This is what fixes the wrong-asset bug: selection, not regeneration. Colour and type never change per format.",
+
+  "brand": {
+    "name": "Northlight",
+    "$note": "FICTIONAL SAMPLE BRAND. Replace with yours. See kit/NEW-BRAND.md."
+  },
+
+  "formats": {
+    "card-16x9": {
+      "label": "Title card / presentation ground",
+      "canvas": "1920x1080",
+      "template": "templates/card-16x9.html",
+      "reference": null,
+      "ground": "texture, full bleed",
+      "lockup": "assets/logos/northlight-mark-white.svg",
+      "notes": "The one format with a full-bleed texture. Add your own approved reference and measure this template against it."
+    },
+    "social-1x1": {
+      "label": "Square social post",
+      "canvas": "1080x1080",
+      "template": "templates/social-1x1.html",
+      "reference": null,
+      "ground": "paper",
+      "lockup": "assets/logos/northlight-mark-ink.svg",
+      "notes": "Paper ground with a texture panel. The everyday piece."
+    },
+    "sting": {
+      "label": "Motion sting / animated logo",
+      "canvas": "1920x1080",
+      "template": "animation/logo-sting.html",
+      "reference": null,
+      "lockup": "assets/logos/northlight-mark-white.svg",
+      "notes": "Built by compositing the real texture into the real logo's own alpha on canvas. Nothing is redrawn. Deterministic in t, so it exports frame-accurately."
+    },
+    "banner-3x1": {
+      "label": "Wide banner",
+      "canvas": "1500x500",
+      "template": null,
+      "reference": null,
+      "notes": "PENDING. No reference, no template. If asked for one, say no approved reference exists and ask for one. Do not improvise a layout: an improvised layout becomes the de facto standard the moment it ships once."
+    }
+  },
+
+  "colour_usage": {
+    "$description": "Which logo variant goes on which ground. Deterministic, so nobody has to guess.",
+    "on-paper-white-or-sand": "ink",
+    "on-texture-ink-or-harbour": "white"
+  },
+
+  "pending_assets": [
+    "Your approved reference designs, one per format, into reference/. Without them the templates cannot be measured against anything.",
+    "A banner-3x1 reference.",
+    "Any additional lockup (horizontal, stacked) your brand actually uses."
+  ]
+}

@@ -1,0 +1,93 @@
+/* ============================================================
+   NORTHLIGHT (sample brand) — code-owned design system
+
+   Everything here is a placeholder. Replace the values, keep the structure.
+   The `--brand-` prefix is deliberately generic: rename it to your own
+   (see kit/RENAME.md) so a stray token from another system is obvious.
+
+   LOGOS are NOT defined here. They are real files in assets/logos/, selected
+   by name. Never regenerate or recolour a logo in code.
+   TEXTURES are NOT defined here. They are real files in assets/textures/.
+   Never substitute a CSS gradient for a texture.
+   ============================================================ */
+
+@import url("./fonts/fonts.css");
+
+:root {
+  /* ---------- palette ---------- */
+  --brand-white:   #FFFFFF;
+  --brand-paper:   #F6F3EE;
+  --brand-sand:    #E3D9CB;
+  --brand-beam:    #E8A13C;
+  --brand-harbour: #3B5A72;
+  --brand-slate:   #2E3742;
+  --brand-ink:     #1B2430;
+
+  /* ---------- semantic roles (consume these, not the palette) ---------- */
+  --brand-bg:          var(--brand-paper);
+  --brand-bg-alt:      var(--brand-white);
+  --brand-bg-dark:     var(--brand-ink);
+  --brand-text:        var(--brand-ink);
+  --brand-text-soft:   var(--brand-slate);
+  --brand-reverse:     var(--brand-white);  /* on texture/ink/harbour ONLY */
+  --brand-accent:      var(--brand-beam);
+  --brand-accent-cool: var(--brand-harbour);
+  --brand-line:        rgba(27, 36, 48, 0.12);
+
+  /* ---------- type ---------- */
+  --brand-font-display: "Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --brand-font-text:    "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --brand-track-display: -0.04em;
+  --brand-track-text:    -0.01em;
+  --brand-lead-display:  0.95;
+
+  /* ---------- spacing (8pt) ---------- */
+  --brand-space-1: 4px;  --brand-space-2: 8px;  --brand-space-3: 16px;
+  --brand-space-4: 24px; --brand-space-5: 40px; --brand-space-6: 64px;
+  --brand-space-7: 96px;
+
+  --brand-radius: 20px;
+}
+
+/* ============================================================ TYPE */
+.brand-headline {
+  font-family: var(--brand-font-display);
+  font-weight: 700;
+  letter-spacing: var(--brand-track-display);
+  line-height: var(--brand-lead-display);
+  color: var(--brand-text);
+  margin: 0;
+  text-wrap: balance;
+}
+.brand-eyebrow {
+  font-family: var(--brand-font-text);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-text-soft);
+  margin: 0;
+}
+.brand-body {
+  font-family: var(--brand-font-text);
+  font-weight: 400;
+  letter-spacing: var(--brand-track-text);
+  line-height: 1.5;
+  color: var(--brand-text-soft);
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ============================================================ HELPERS */
+.brand-on-dark { color: var(--brand-reverse); }
+.brand-surface-paper { background: var(--brand-bg); }
+.brand-surface-ink   { background: var(--brand-bg-dark); color: var(--brand-reverse); }
+
+/* The texture panel. background-image is set per piece from a real file. */
+.brand-panel {
+  border-radius: var(--brand-radius);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+.brand-rule { border: none; border-top: 1px solid var(--brand-line); margin: 0; }

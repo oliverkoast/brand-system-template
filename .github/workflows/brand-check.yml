@@ -1,0 +1,83 @@
+# Brand regression check.
+#
+# Renders every template headless and fails if one comes back blank, which is
+# what happens when an asset path breaks, a font goes missing, or someone
+# deletes a file another piece depended on.
+#
+# Extend it: once you have approved references and a measurement table, assert
+# the real landmarks (headline top, block height, logo bounding box) instead of
+# just "not blank". That turns "the brand looks off" into a failing build.
+
+name: brand check
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Chrome and Pillow
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser python3-pil
+          echo "CHROME=$(which chromium-browser)" >> "$GITHUB_ENV"
+
+      - name: Manifests are valid JSON
+        run: |
+          python3 -c "import json; [json.load(open(f)) for f in ['brand.json','tokens/design-tokens.json','assets/assets.json']]"
+          echo "manifests ok"
+
+      - name: Every referenced asset exists
+        run: |
+          python3 - <<'PY'
+          import re, os, glob, sys
+          bad = []
+          for f in glob.glob("**/*.html", recursive=True) + ["styles.css", "fonts/fonts.css"]:
+              if f.startswith("out/"): continue
+              for m in re.finditer(r'(?:src|href)="([^"?#:]+)"|url\("([^"?#:]+)"\)', open(f).read()):
+                  rel = m.group(1) or m.group(2)
+                  p = os.path.normpath(os.path.join(os.path.dirname(f) or ".", rel))
+                  if not os.path.exists(p): bad.append((f, rel))
+          if bad:
+              for f, r in bad: print(f"BROKEN  {f} -> {r}")
+              sys.exit(1)
+          print("all asset references resolve")
+          PY
+
+      - name: Templates render non-blank
+        run: |
+          set -e
+          mkdir -p out
+          render () {
+            "$CHROME" --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+              --force-device-scale-factor=1 --window-size="$2,$3" \
+              --virtual-time-budget=5000 --screenshot="out/$1.png" \
+              "file://$PWD/$4"
+          }
+          render card   1920 1080 templates/card-16x9.html
+          render social 1080 1080 templates/social-1x1.html
+          render sting  1920 1080 "animation/logo-sting.html?t=2.4"
+          python3 - <<'PY'
+          from PIL import Image
+          import sys
+          bad = False
+          for n in ("card", "social", "sting"):
+              im = Image.open(f"out/{n}.png").convert("RGB")
+              colours = len(set(im.resize((240, 135)).getdata()))
+              print(f"{n:8} {im.size}  distinct colours {colours}")
+              if colours < 8:
+                  print(f"  FAIL {n} rendered blank or near-blank")
+                  bad = True
+          sys.exit(1 if bad else 0)
+          PY
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: renders
+          path: out/*.png

@@ -1,0 +1,24 @@
+/* Real variable font files, self-hosted. Both open-source under the SIL OFL;
+   licences ship alongside them.
+
+   Self-hosted on purpose: the system must render identically offline, in
+   email, and in print, with no request to a third-party CDN.
+
+   Never reference a font file that is not present in this folder. */
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("./SpaceGrotesk[wght].ttf") format("truetype-variations"),
+       url("./SpaceGrotesk[wght].ttf") format("truetype");
+}
+@font-face {
+  font-family: "Sora";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("./Sora[wght].ttf") format("truetype-variations"),
+       url("./Sora[wght].ttf") format("truetype");
+}

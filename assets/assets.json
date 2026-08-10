@@ -1,0 +1,66 @@
+{
+  "$description": "Approved asset manifest. Claude references images ONLY from this list, never invents or substitutes stock, and never shows a placeholder when a committed file exists. A file sitting in assets/ that is NOT listed here is not selectable, and that is intentional.",
+
+  "$labeling": {
+    "key": "Deterministic id. One entry per approved asset, so the wrong file cannot be picked.",
+    "path": "In-repo committed file. Render from it directly.",
+    "kind": "logo | texture | photo",
+    "rights": "Ownership plus any release note. Unclear rights means NOT approved for publishing.",
+    "status": "in-repo | pending"
+  },
+
+  "$rules": {
+    "size": "Every committed image must be under 5 MB. Some design tools silently drop larger files on sync. For opaque photographic assets, keep full resolution and re-encode as JPEG q=96 4:4:4 rather than downscaling. Anything with transparency stays PNG.",
+    "no_css_gradients": "Never substitute a CSS gradient for a texture. Place a real file. A CSS gradient has no grain and no optical break and reads as generic immediately.",
+    "no_recolor": "Approved colour variants are separate real files. Never invert, filter, or recolour a logo to make one.",
+    "rights": "Unclear rights means NOT approved. Anything with unverified provenance is comps-only until a human confirms it. A filename is not provenance."
+  },
+
+  "usage": {
+    "$rule": "Match the piece's format first, then the slot. Use ONLY an asset listed for that slot. If nothing fits, show a labeled slot and flag it.",
+    "card-16x9":  { "ground": ["texture-dawn-01", "texture-dusk-02"], "lockup": ["northlight-mark-white"] },
+    "social-1x1": { "panel":  ["texture-dawn-01", "texture-dusk-02"], "lockup": ["northlight-mark-ink"] },
+    "sting":      { "sheen":  ["texture-dawn-01", "texture-dusk-02"], "lockup": ["northlight-mark-white"] }
+  },
+
+  "logos": {
+    "northlight-mark-ink": {
+      "path": "assets/logos/northlight-mark-ink.svg",
+      "kind": "logo", "status": "in-repo",
+      "alt": "Northlight mark",
+      "notes": "For paper, white, and sand grounds. SVG, so there is no maximum placement size.",
+      "rights": "Sample asset, MIT with this template. Replace with yours."
+    },
+    "northlight-mark-white": {
+      "path": "assets/logos/northlight-mark-white.svg",
+      "kind": "logo", "status": "in-repo",
+      "alt": "Northlight mark, reversed",
+      "notes": "For texture, ink, and harbour grounds.",
+      "rights": "Sample asset, MIT with this template. Replace with yours."
+    }
+  },
+
+  "textures": {
+    "texture-dawn-01": {
+      "path": "assets/textures/texture-dawn-01.png",
+      "kind": "texture", "status": "in-repo",
+      "size": "1200x800",
+      "alt": "Cool blue falling into a warm horizon of light, fine grain",
+      "notes": "The warm default. Card grounds and social panels.",
+      "rights": "Generated for this template, MIT. Replace with yours."
+    },
+    "texture-dusk-02": {
+      "path": "assets/textures/texture-dusk-02.png",
+      "kind": "texture", "status": "in-repo",
+      "size": "1200x800",
+      "alt": "Deep violet-slate with a soft light source upper left, fine grain",
+      "notes": "The cooler alternate. Use where the piece should feel serious rather than warm.",
+      "rights": "Generated for this template, MIT. Replace with yours."
+    }
+  },
+
+  "photos": {
+    "$description": "Empty by design. Add your own, with a rights note on every entry. Anything whose provenance you cannot state is comps-only.",
+    "$status": "EMPTY"
+  }
+}
