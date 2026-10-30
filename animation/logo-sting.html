@@ -1,25 +1,23 @@
 <!doctype html>
 <!--
-  SCENE — logo sting. 1920x1080, 4 seconds.
+  SCENE: logo sting. 1920x1080, 4 seconds.
 
-  THE POINT: nothing is redrawn. The mark is the real file from assets/logos/,
-  and the light moving through it is the real texture from assets/textures/.
-  Each frame composites the texture into the logo's own alpha, so what you see
-  is the approved artwork lit by the approved texture.
+  Nothing is redrawn. The mark is the real cream file from assets/logos/,
+  placed inside the green tile exactly as the site header and the social card
+  do. The tile is a token-coloured rounded square (radius 10/34 of its size);
+  the wordmark is TYPE, set in the wordmark face, never a raster.
 
-  That matters because an animation built by redrawing a logo is a second logo
-  nobody is checking. Once it is inside a video it never gets reviewed again.
+  Ground: rail. Hotelink has no texture set, so there is no light-through-logo
+  pass here (see ds-motion.js).
 
-  DETERMINISTIC. The whole thing is a pure function of t, so ?t=1.25 renders
-  that instant and holds. kit/export-frames.sh walks t and screenshots each
-  step: no screen recording, no dropped frames, no timing drift.
+  DETERMINISTIC. A pure function of t: ?t=1.25 renders that instant and holds.
 
-  ?t=<sec>  one frozen frame     ?bg=none  transparent     ?bg=paper|ink
+  ?t=<sec>  one frozen frame     ?bg=none  transparent     ?bg=paper|rail
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Northlight — logo sting</title>
+<title>hotelink: logo sting</title>
 <link rel="stylesheet" href="../styles.css" />
 <style>
   html, body { margin: 0; padding: 0; background: #000; }
@@ -34,50 +32,56 @@ DS.run({
   canvas:   document.getElementById('stage'),
   duration: 4.0,
   assets: {
-    mark:    '../assets/logos/northlight-mark-white.svg',
-    texture: '../assets/textures/texture-dawn-01.png',
+    mark: '../assets/logos/hotelink-mark-cream.svg',
   },
 
   render(t, a) {
-    const { ctx, W, H, img, seg, lerp, ease, metal, setFont, color } = a;
+    const { ctx, W, H, img, seg, lerp, ease, setFont, color } = a;
 
-    const SIZE = 300;
-    const cx = W / 2, cy = H / 2 - 40;
+    // Site proportions: tile 34, radius 10, mark (64-unit box) 26, gap 10, wordmark 20.
+    const TILE = 220;
+    const R    = TILE * 10 / 34;
+    const MARK = TILE * 26 / 34 * 40 / 64;   // the file's viewBox is cropped to 40 of 64 units
+    const GAP  = TILE * 10 / 34;
+    const WORD = TILE * 20 / 34;
 
-    // 1 · the mark reveals through an expanding circular clip
-    const pIn    = ease.outBack(seg(t, 0.00, 0.70));
-    const alpha  = seg(t, 0.00, 0.30);
-    const clipR  = lerp(0, 0.95, ease.outExpo(seg(t, 0.05, 0.80)));
-    const scale  = lerp(0.84, 1, pIn);
+    setFont(ctx, { family: 'wordmark', weight: 700, size: WORD });
+    const wordW  = ctx.measureText('hotelink').width;
+    const totalW = TILE + GAP + wordW;
 
-    if (alpha > 0 && clipR > 0) {
-      // 2 · light travels through it: the sampled window of the real texture pans
-      const pan  = lerp(0.05, 0.75, ease.outExpo(seg(t, 0.15, 1.40))) + (t / 4.0) * 0.25;
-      const tile = metal(img.mark, img.texture, SIZE, SIZE, pan % 1);
-      ctx.save();
-      ctx.globalAlpha = alpha;
-      ctx.beginPath();
-      ctx.arc(cx, cy, clipR * SIZE, 0, Math.PI * 2);
-      ctx.clip();
-      ctx.translate(cx, cy);
-      ctx.scale(scale, scale);
-      ctx.drawImage(tile, -SIZE / 2, -SIZE / 2);
-      ctx.restore();
-    }
+    // 1 · the tile scales in at centre, then slides left to make room for the word
+    const pIn    = ease.outBack(seg(t, 0.00, 0.60));
+    const pSlide = ease.outExpo(seg(t, 0.75, 1.60));
+    const tileCx = lerp(W / 2, W / 2 - totalW / 2 + TILE / 2, pSlide);
+    const cy     = H / 2;
+    const s      = lerp(0.6, 1, pIn);
 
-    // 3 · the wordmark is TYPE, not a file. Set it, never place a raster of it.
-    const pWord = ease.outExpo(seg(t, 0.70, 1.45));
+    ctx.save();
+    ctx.globalAlpha = seg(t, 0.00, 0.25);
+    ctx.translate(tileCx, cy);
+    ctx.scale(s, s);
+    ctx.fillStyle = color.accentStrong;
+    ctx.beginPath();
+    ctx.roundRect(-TILE / 2, -TILE / 2, TILE, TILE, R);
+    ctx.fill();
+    // 2 · the real mark file, unmodified
+    const pMark = ease.outQuint(seg(t, 0.25, 0.80));
+    ctx.globalAlpha *= pMark;
+    const m = MARK * lerp(0.85, 1, pMark);
+    ctx.drawImage(img.mark, -m / 2, -m / 2, m, m);
+    ctx.restore();
+
+    // 3 · the wordmark is TYPE. Revealed left to right behind the tile.
+    const pWord = ease.outExpo(seg(t, 0.95, 1.80));
     if (pWord > 0) {
+      const x0 = W / 2 - totalW / 2 + TILE + GAP;
       ctx.save();
-      ctx.globalAlpha = seg(t, 0.70, 0.85);
       ctx.beginPath();
-      ctx.rect(cx - 400, cy + SIZE / 2 + 10, 800 * pWord, 200);
+      ctx.rect(x0, cy - WORD, (wordW + 20) * pWord, WORD * 2);
       ctx.clip();
-      ctx.fillStyle = color.white;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'top';
-      setFont(ctx, { family: 'display', weight: 700, size: 96, tracking: '-0.04em' });
-      ctx.fillText('NORTHLIGHT', cx, cy + SIZE / 2 + 40 + lerp(12, 0, pWord));
+      ctx.fillStyle = color.paper;
+      ctx.textBaseline = 'middle';
+      ctx.fillText('hotelink', x0 + lerp(-24, 0, pWord), cy + WORD * 0.04);
       ctx.restore();
     }
   }

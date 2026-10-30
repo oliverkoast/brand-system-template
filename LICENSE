@@ -22,6 +22,11 @@ SOFTWARE.
 
 ---
 
-The two typefaces in fonts/ (Space Grotesk, Sora) are third-party and licensed
-separately under the SIL Open Font License. Their licence files ship alongside
-them. The MIT licence above does not apply to them.
+The MIT licence covers the code and docs only. It does not cover:
+
+- The two typefaces in fonts/ (Literata, IBM Plex Sans), licensed separately
+  under the SIL Open Font License. Their licence files ship alongside them.
+- The hotelink marks in assets/logos/ and the reference image, which belong to
+  Hotelink.
+- The third-party logos in assets/partners/, which are trademarks of their
+  respective owners.

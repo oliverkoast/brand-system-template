@@ -4,8 +4,9 @@ This repo is a **code-owned design system**. Before making any change, read and 
 `DESIGN.md` (the brand contract). It is authoritative. The notes below are the parts people ask
 for most, so you apply them without being told each time.
 
-> Template note: the brand here ("Northlight") is fictional. See `kit/NEW-BRAND.md` to make it
-> yours, and `kit/RENAME.md` for the find-and-replace.
+> This is the **hotelink** system, built from Oliver's brand-system template and hotelink.ai as
+> shipped on 2026-10-30. Open questions live in `qa/FINDINGS.md`; read the H-entries before
+> making anything external.
 
 ## Making a piece
 
@@ -23,18 +24,23 @@ for most, so you apply them without being told each time.
   silently missing asset is the worst failure mode there is. For opaque photographic assets,
   **keep full resolution and re-encode as JPEG q=96 4:4:4** rather than downscaling. Anything
   with transparency stays PNG.
-- **Name them deterministically**: `texture-{tone}-{NN}`, `{brand}-{lockup}-{colour}`.
+- **Name them deterministically**: `hotelink-{lockup}-{colour}`, `partner-{vendor}`.
 - **Add each to `assets/assets.json`** with `alt`, `kind`, and its slot in the `usage` map.
   A file that is not in the manifest is not selectable, and that is intentional.
 
-## Textures are files, not CSS
+## No textures, no gradients
 
-Never write a CSS gradient in place of a texture. Place a real file. A CSS gradient has no grain
-and no optical break, and it reads as generic immediately.
+Hotelink grounds are flat token colours. There is no texture set. Never add a gradient or a
+generated texture for "depth".
+
+## Partner logos are not ours
+
+`assets/partners/` holds other companies' trademarks. Use them only in a "Connected systems"
+strip, never recoloured, never next to a partnership claim (DESIGN.md, H-08).
 
 ## Every change
 
-- **Real files referenced, never regenerated** (logos, fonts, textures).
+- **Real files referenced, never regenerated** (logos, fonts, partner logos).
 - **Only defined tokens; never invent a hex, weight, or value.** If something is missing or
   looks wrong, stop and flag it rather than guessing or patching.
 - **When writing or editing copy, follow `VOICE.md`.**

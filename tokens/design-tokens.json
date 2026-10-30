@@ -1,46 +1,110 @@
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$description": "SAMPLE tokens for the fictional brand 'Northlight'. Replace every value with your own, then delete this sentence. Values here are illustrative; in a real system every one of them traces to a source document (a palette sheet, a type sheet) and anything unconfirmed carries a $verify note.",
+  "$description": "Hotelink tokens. Every value is copied verbatim from the :root block of hotelink.ai's production stylesheet (assets/index-CXgD2Jtt.css, captured 2026-10-30). That stylesheet is the only source available: there is no palette sheet or type sheet from Hotelink yet, so the whole file carries $verify until one confirms it (qa/FINDINGS.md H-01).",
+  "$source": "https://hotelink.ai/assets/index-CXgD2Jtt.css :root",
+  "$verify": "Confirm against a Hotelink palette/type sheet. Until then the shipped site is the spec.",
 
   "color": {
-    "$description": "Named palette. Layouts consume the roles below, never these directly.",
-    "white":  { "$value": "#FFFFFF", "$type": "color" },
-    "paper":  { "$value": "#F6F3EE", "$type": "color", "$description": "Default ground." },
-    "sand":   { "$value": "#E3D9CB", "$type": "color" },
-    "beam":   { "$value": "#E8A13C", "$type": "color", "$description": "Primary accent." },
-    "harbour":{ "$value": "#3B5A72", "$type": "color", "$description": "Cool accent." },
-    "slate":  { "$value": "#2E3742", "$type": "color" },
-    "ink":    { "$value": "#1B2430", "$type": "color", "$description": "Default type and dark surfaces." }
+    "$description": "Named palette, light theme (:root). Layouts consume the roles below, never these directly.",
+    "paper":         { "$value": "#F6F2EB", "$type": "color", "$description": "Default ground. Also the site's meta theme-color." },
+    "white":         { "$value": "#FFFDF9", "$type": "color", "$description": "Raised surface (cards). A warm white, not #FFFFFF." },
+    "sunken":        { "$value": "#F1ECE4", "$type": "color", "$description": "Recessed band, e.g. the connected-systems strip." },
+    "soft":          { "$value": "#ECE6DC", "$type": "color" },
+    "ink":           { "$value": "#2A2520", "$type": "color", "$description": "Default type. Warm near-black." },
+    "muted":         { "$value": "#756A5E", "$type": "color", "$description": "Secondary type, body-lg." },
+    "faint":         { "$value": "#9A8F82", "$type": "color", "$description": "Tertiary type, footer." },
+    "accent":        { "$value": "#2F5C4A", "$type": "color", "$description": "Brand green. Eyebrows, second headline line, button hover." },
+    "accent-strong": { "$value": "#1F3A30", "$type": "color", "$description": "Deep green. Buttons, logo tile, contact band." },
+    "accent-tint":   { "$value": "#E6EDE6", "$type": "color" },
+    "gold":          { "$value": "#9A7B45", "$type": "color" },
+    "rail":          { "$value": "#1E2723", "$type": "color", "$description": "Darkest green-black. The dark-theme ground." },
+    "line":          { "$value": "rgba(74, 56, 36, 0.12)", "$type": "color" },
+    "line-strong":   { "$value": "rgba(74, 56, 36, 0.22)", "$type": "color" }
+  },
+
+  "logo-color": {
+    "$description": "Colours that exist ONLY inside the logo files. Not for layout use. Listed so nobody re-derives them. They are not in the site's :root (H-05).",
+    "link-gold": { "$value": "#CDB68A", "$type": "color", "$description": "The link-shaped crossbar of the mark, every variant." },
+    "cream":     { "$value": "#F3EAD9", "$type": "color", "$description": "Mark bars in hotelink-mark-cream.svg." }
   },
 
   "role": {
-    "$description": "Semantic roles. Mirrors styles.css.",
-    "bg":        { "$value": "{color.paper}", "$type": "color" },
-    "bg-alt":    { "$value": "{color.white}", "$type": "color" },
-    "bg-dark":   { "$value": "{color.ink}",   "$type": "color" },
-    "text":      { "$value": "{color.ink}",   "$type": "color" },
-    "text-soft": { "$value": "{color.slate}", "$type": "color" },
-    "reverse":   { "$value": "{color.white}", "$type": "color", "$description": "Type on texture, ink, or harbour ONLY. Never on paper." },
-    "accent":    { "$value": "{color.beam}",  "$type": "color" },
-    "accent-cool":{ "$value": "{color.harbour}", "$type": "color" }
+    "$description": "Semantic roles, light theme. Mirrors styles.css.",
+    "bg":          { "$value": "{color.paper}",         "$type": "color" },
+    "bg-raised":   { "$value": "{color.white}",         "$type": "color" },
+    "bg-sunken":   { "$value": "{color.sunken}",        "$type": "color" },
+    "bg-dark":     { "$value": "{color.accent-strong}", "$type": "color" },
+    "bg-darkest":  { "$value": "{color.rail}",          "$type": "color" },
+    "text":        { "$value": "{color.ink}",           "$type": "color" },
+    "text-soft":   { "$value": "{color.muted}",         "$type": "color" },
+    "text-faint":  { "$value": "{color.faint}",         "$type": "color" },
+    "reverse":     { "$value": "{color.paper}",         "$type": "color", "$description": "Type on accent-strong or rail ONLY. Never on paper." },
+    "accent":      { "$value": "{color.accent}",        "$type": "color" }
+  },
+
+  "theme-dark": {
+    "$description": "The site's .v-c dark theme, verbatim. This is what hotelink.ai renders by default today (body class=\"v-c\"). See H-04.",
+    "paper":         { "$value": "#1E2723", "$type": "color" },
+    "ink":           { "$value": "#F6F2EB", "$type": "color" },
+    "muted":         { "$value": "#A9BDB2", "$type": "color" },
+    "faint":         { "$value": "#6C8C7E", "$type": "color" },
+    "white":         { "$value": "#22302A", "$type": "color" },
+    "sunken":        { "$value": "#1B231F", "$type": "color" },
+    "soft":          { "$value": "#27332E", "$type": "color" },
+    "accent":        { "$value": "#C8D5CC", "$type": "color" },
+    "accent-strong": { "$value": "#F6F2EB", "$type": "color" },
+    "accent-tint":   { "$value": "#27332E", "$type": "color" },
+    "line":          { "$value": "rgba(230, 237, 230, 0.1)", "$type": "color" },
+    "line-strong":   { "$value": "rgba(230, 237, 230, 0.2)", "$type": "color" }
   },
 
   "font": {
-    "$description": "Two families, both open-source (SIL OFL) and self-hosted as real variable .ttf files in /fonts. Swap for your own; if yours are licensed, confirm the licence covers web and email embedding BEFORE anything ships.",
+    "$description": "Three faces, as the site declares them. Display and UI are self-hosted OFL woff2 files in /fonts. The wordmark face is Georgia, a system font with no file here (H-02).",
     "family": {
-      "display": { "$value": "Space Grotesk", "$type": "fontFamily", "$description": "Headlines." },
-      "text":    { "$value": "Sora",          "$type": "fontFamily", "$description": "Body, labels." }
+      "display":  { "$value": "Literata",       "$type": "fontFamily", "$description": "Headlines (h1-h3)." },
+      "ui":       { "$value": "IBM Plex Sans",  "$type": "fontFamily", "$description": "Body, labels, buttons." },
+      "wordmark": { "$value": "Georgia",        "$type": "fontFamily", "$description": "The 'hotelink' wordmark only." }
     },
-    "weight":   { "display": { "$value": 700, "$type": "fontWeight" },
-                  "text":    { "$value": 400, "$type": "fontWeight" } },
-    "tracking": { "display": { "$value": "-0.04em", "$type": "dimension" },
-                  "text":    { "$value": "-0.01em", "$type": "dimension" } },
-    "leading":  { "display": { "$value": 0.95, "$type": "number" },
-                  "text":    { "$value": 1.5,  "$type": "number" } }
+    "weight": {
+      "display":  { "$value": 500, "$type": "fontWeight" },
+      "body":     { "$value": 400, "$type": "fontWeight" },
+      "emphasis": { "$value": 600, "$type": "fontWeight", "$description": "Eyebrows, brand tag, strong in body." },
+      "button":   { "$value": 500, "$type": "fontWeight" },
+      "wordmark": { "$value": 700, "$type": "fontWeight" }
+    },
+    "tracking": {
+      "wordmark": { "$value": "-0.0467em", "$type": "dimension" },
+      "eyebrow":  { "$value": "0.12em",    "$type": "dimension" }
+    },
+    "leading": {
+      "hero":    { "$value": 1.02, "$type": "number" },
+      "section": { "$value": 1.1,  "$type": "number" },
+      "body":    { "$value": 1.6,  "$type": "number" },
+      "body-lg": { "$value": 1.65, "$type": "number" }
+    },
+    "size": {
+      "$description": "Web sizes from the site. Collateral templates scale these; they are not measured from a reference.",
+      "eyebrow":  { "$value": "12px", "$type": "dimension" },
+      "body":     { "$value": "16px", "$type": "dimension" },
+      "body-lg":  { "$value": "18px", "$type": "dimension" },
+      "wordmark": { "$value": "20px", "$type": "dimension", "$description": "Header lockup, next to a 34px tile." }
+    }
+  },
+
+  "radius": {
+    "base":  { "$value": "14px",  "$type": "dimension" },
+    "lg":    { "$value": "22px",  "$type": "dimension" },
+    "tile":  { "$value": "10px",  "$type": "dimension", "$description": "Logo tile at 34px. Ratio 0.294 of tile size." },
+    "pill":  { "$value": "999px", "$type": "dimension", "$description": "Buttons." }
+  },
+
+  "layout": {
+    "wrap": { "$value": "1180px", "$type": "dimension" },
+    "ease": { "$value": "cubic-bezier(0.2, 0.7, 0.2, 1)", "$type": "cubicBezier" }
   },
 
   "space": {
-    "$description": "8pt scale.",
+    "$description": "Template spacing scale, kept from the template. NOT from the site, which has no spacing tokens. $verify.",
     "1": { "$value": "4px",  "$type": "dimension" },
     "2": { "$value": "8px",  "$type": "dimension" },
     "3": { "$value": "16px", "$type": "dimension" },

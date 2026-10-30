@@ -8,7 +8,7 @@
 # no timing drift. Same input, same pixels, every time.
 #
 # Usage:
-#   kit/export-frames.sh                       # 4s at 30fps, ink ground
+#   kit/export-frames.sh                       # 4s at 30fps, rail ground
 #   kit/export-frames.sh 60 out/sting-60        # 60fps into a chosen folder
 #   BG=none kit/export-frames.sh                # transparent, for compositing
 #
@@ -16,7 +16,7 @@ set -euo pipefail
 
 FPS="${1:-30}"
 OUTDIR="${2:-out/sting}"
-BG="${BG:-ink}"
+BG="${BG:-rail}"
 DURATION=4.0                                   # must match DURATION in the html
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

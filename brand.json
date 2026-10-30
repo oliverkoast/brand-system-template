@@ -1,56 +1,70 @@
 {
-  "$description": "The format menu. To make a piece, name the format here and the correct canvas, lockup, and margins are selected deterministically. This is what fixes the wrong-asset bug: selection, not regeneration. Colour and type never change per format.",
+  "$description": "The format menu. To make a piece, name the format here and the correct canvas, lockup, and margins are selected deterministically. Colour and type never change per format.",
 
   "brand": {
-    "name": "Northlight",
-    "$note": "FICTIONAL SAMPLE BRAND. Replace with yours. See kit/NEW-BRAND.md."
+    "name": "hotelink",
+    "display_name_note": "Lowercase in the wordmark and in Hotelink's own copy. See qa/FINDINGS.md H-03.",
+    "source": "hotelink.ai as shipped 2026-10-30. No brand book supplied yet (H-01).",
+    "url": "https://hotelink.ai",
+    "contact": "sales@hotelink.ai"
   },
 
   "formats": {
+    "og-1200x630": {
+      "label": "Social share card / link preview",
+      "canvas": "1200x630",
+      "template": null,
+      "reference": "reference/og-1200x630.jpg",
+      "ground": "paper left, rail right (split)",
+      "lockup": "tile lockup (green tile + assets/logos/hotelink-mark-cream.svg) + wordmark",
+      "notes": "The one approved reference. No coded template yet: the right-panel system diagram has no approved illustration file (H-07). To make one, reproduce the reference with real tokens, fonts, and logos, and measure it."
+    },
     "card-16x9": {
       "label": "Title card / presentation ground",
       "canvas": "1920x1080",
       "template": "templates/card-16x9.html",
       "reference": null,
-      "ground": "texture, full bleed",
-      "lockup": "assets/logos/northlight-mark-white.svg",
-      "notes": "The one format with a full-bleed texture. Add your own approved reference and measure this template against it."
+      "ground": "paper",
+      "lockup": "tile lockup (green tile + assets/logos/hotelink-mark-cream.svg) + wordmark",
+      "notes": "Layout follows the left half of the social card (eyebrow, two-beat headline, body, brand tag). Numbers are scaled from the reference, not measured against a 16:9 reference, because none exists."
     },
     "social-1x1": {
       "label": "Square social post",
       "canvas": "1080x1080",
       "template": "templates/social-1x1.html",
       "reference": null,
-      "ground": "paper",
-      "lockup": "assets/logos/northlight-mark-ink.svg",
-      "notes": "Paper ground with a texture panel. The everyday piece."
+      "ground": "paper, with an accent-strong band",
+      "lockup": "tile lockup on paper",
+      "notes": "The everyday piece. Not measured against a reference (none exists)."
     },
     "sting": {
       "label": "Motion sting / animated logo",
       "canvas": "1920x1080",
       "template": "animation/logo-sting.html",
       "reference": null,
-      "lockup": "assets/logos/northlight-mark-white.svg",
-      "notes": "Built by compositing the real texture into the real logo's own alpha on canvas. Nothing is redrawn. Deterministic in t, so it exports frame-accurately."
+      "lockup": "assets/logos/hotelink-mark-cream.svg on rail",
+      "notes": "Real mark file, wordmark set as type. No motion reference from Hotelink; the ad's logo moment at 1:36 would be the natural one to measure against."
     },
     "banner-3x1": {
       "label": "Wide banner",
       "canvas": "1500x500",
       "template": null,
       "reference": null,
-      "notes": "PENDING. No reference, no template. If asked for one, say no approved reference exists and ask for one. Do not improvise a layout: an improvised layout becomes the de facto standard the moment it ships once."
+      "notes": "PENDING. No reference, no template. If asked for one, say no approved reference exists and ask for one."
     }
   },
 
   "colour_usage": {
-    "$description": "Which logo variant goes on which ground. Deterministic, so nobody has to guess.",
-    "on-paper-white-or-sand": "ink",
-    "on-texture-ink-or-harbour": "white"
+    "$description": "Which mark file goes on which ground. Deterministic, so nobody has to guess.",
+    "on-paper-white-sunken-or-paper-tile": "green",
+    "on-accent-strong-rail-dark-theme-or-green-tile": "cream"
   },
 
   "pending_assets": [
-    "Your approved reference designs, one per format, into reference/. Without them the templates cannot be measured against anything.",
-    "A banner-3x1 reference.",
-    "Any additional lockup (horizontal, stacked) your brand actually uses."
+    "A Hotelink palette/type sheet to confirm the site values (H-01).",
+    "A licensed or replacement wordmark face: Georgia is a system font (H-02).",
+    "A rail-bar mark file if the dark-header variant is approved (H-06).",
+    "The social card's system-diagram illustration as a file (H-07).",
+    "Approved references for card-16x9, social-1x1, sting, banner-3x1."
   ]
 }
