@@ -13,6 +13,10 @@
    logo PNG and a real texture PNG and keeps the texture only where the logo's
    own alpha says so, which is why the artwork on screen is the approved file
    lit from behind by the approved texture.
+
+   HOTELINK NOTE: Hotelink has no texture set, so its sting does not call
+   metal(). It is kept for a texture the brand may add later. Do not feed it
+   a generated gradient in the meantime.
    ============================================================ */
 
 window.DS = (function () {
@@ -34,13 +38,14 @@ window.DS = (function () {
   // ---- tokens ------------------------------------------------------------
   // Mirrors styles.css. Canvas cannot read CSS custom properties directly.
   const color = {
-    white: '#FFFFFF', paper: '#F6F3EE', sand: '#E3D9CB', beam: '#E8A13C',
-    harbour: '#3B5A72', slate: '#2E3742', ink: '#1B2430',
+    paper: '#F6F2EB', white: '#FFFDF9', ink: '#2A2520', accent: '#2F5C4A',
+    accentStrong: '#1F3A30', gold: '#9A7B45', rail: '#1E2723',
   };
 
   const font = {
-    display: '"Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif',
-    text:    '"Sora", "Helvetica Neue", Helvetica, Arial, sans-serif',
+    display:  'Literata, Georgia, serif',
+    ui:       '"IBM Plex Sans", system-ui, sans-serif',
+    wordmark: 'Georgia, "Times New Roman", serif',
   };
 
   // ---- assets ------------------------------------------------------------
@@ -93,7 +98,7 @@ window.DS = (function () {
     ctx.font = `${weight} ${size}px ${font[family]}`;
     if ('letterSpacing' in ctx) {
       ctx.letterSpacing = tracking != null ? tracking
-                        : (family === 'display' ? '-0.06em' : '-0.05em');
+                        : (family === 'wordmark' ? '-0.0467em' : '0em');
     }
   }
 
@@ -101,9 +106,9 @@ window.DS = (function () {
     if (!document.fonts) return Promise.resolve();
     // Nudge both faces so they are actually downloaded, not just declared.
     return Promise.all([
-      document.fonts.load('700 100px "Space Grotesk"'),
-      document.fonts.load('400 100px "Sora"'),
-      document.fonts.load('700 100px "Sora"'),
+      document.fonts.load('500 100px Literata'),
+      document.fonts.load('400 100px "IBM Plex Sans"'),
+      document.fonts.load('600 100px "IBM Plex Sans"'),
     ]).then(() => document.fonts.ready);
   }
 
@@ -117,7 +122,7 @@ window.DS = (function () {
     const bgKey = q.get('bg');
 
     const backgrounds = {
-      none: null, ink: color.ink, paper: color.paper,
+      none: null, rail: color.rail, paper: color.paper,
       // Matte pair. Not brand colours: the exporter renders each frame over
       // both and solves for true alpha. See kit/unmatte.py.
       black: '#000000', white: '#FFFFFF',
@@ -125,8 +130,8 @@ window.DS = (function () {
     // No ?bg at all means the scene's normal opaque ground, NOT "fill nothing".
     // Getting that wrong shows up as a scene rendering over the page's black
     // body colour, which looks deliberate and is not.
-    const key = bgKey === null ? 'ink' : bgKey;
-    const bg  = key in backgrounds ? backgrounds[key] : backgrounds.ink;
+    const key = bgKey === null ? 'rail' : bgKey;
+    const bg  = key in backgrounds ? backgrounds[key] : backgrounds.rail;
 
     const api = { ctx, canvas, W: canvas.width, H: canvas.height, bg, q,
                   color, font, metal, setFont, seg, lerp, ease, clamp };

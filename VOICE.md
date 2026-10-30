@@ -62,7 +62,7 @@ Never "Learn more" or "Get started", which say nothing about where the reader is
 
 - Names, dates, figures, prices, quotes, results, customer names.
 - **Any partner or integration claim.** Only systems listed in `source/hotelink-site.md` may be
-  named as connected, and "partner" vs "integration" is a question for Hotelink (H-04).
+  named as connected, and "partner" vs "integration" is a question for Hotelink (H-08).
 - Anything characterising Proper Hospitality beyond "Shaped inside Proper Hospitality."
 
 If a detail is missing, use a labeled placeholder and ask.

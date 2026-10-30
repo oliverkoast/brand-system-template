@@ -1,52 +1,50 @@
 <!doctype html>
 <!--
-  TEMPLATE — title card, 1920x1080.
+  TEMPLATE: title card, 1920x1080.
 
   Remix this file. Do not rebuild the layout from scratch.
 
-  In a real system every number here would be MEASURED from your approved
-  reference and the measurements recorded in reference/README.md, so a later
-  change can be diffed against them. This template ships with sensible values
-  because it has no reference to measure against yet. Replacing them with
-  measured ones is step 4 of kit/NEW-BRAND.md, and it is the step people skip.
+  The layout is the left half of the approved social card
+  (reference/og-1200x630.jpg): lockup top left, eyebrow, two-beat headline
+  with the second beat in accent green, one line of body, brand tag at the
+  foot. Positions are the reference's, scaled by 1.6 (1920 / 1200) and NOT yet
+  measured against a 16:9 reference, because none exists (FINDINGS F-06).
 
-  What you change: the headline, the eyebrow, --ground.
-  What you never change: the logo colour rule, the token values.
+  What you change: the eyebrow, the two headline beats, the body line.
+  What you never change: the lockup, the token values, the brand tag.
 
   Export:  kit/render.sh templates/card-16x9.html out/card.png 1920 1080
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Northlight — title card</title>
+<title>hotelink: title card</title>
 <link rel="stylesheet" href="../styles.css" />
 <style>
-  .card {
-    /* Pick a texture listed under usage["card-16x9"].ground in assets.json */
-    --ground: url("../assets/textures/texture-dawn-01.png");
-  }
   html, body { margin: 0; padding: 0; }
-  .card {
-    position: relative; width: 1920px; height: 1080px; overflow: hidden;
-    background-image: var(--ground);
-    background-size: cover; background-position: center;
-  }
-  .card__logo     { position: absolute; left: 96px; top: 88px; width: 132px; height: auto; }
-  .card__eyebrow  { position: absolute; left: 100px; top: 268px; font-size: 26px;
-                    color: rgba(255,255,255,0.72); }
-  .card__headline { position: absolute; left: 96px; top: 312px; width: 1100px;
-                    font-size: 132px; color: var(--brand-reverse); }
-  .card__foot     { position: absolute; left: 100px; bottom: 92px; font-size: 24px;
-                    color: rgba(255,255,255,0.66); }
+  .card { position: relative; width: 1920px; height: 1080px; overflow: hidden;
+          background: var(--hl-bg); }
+  .card__lockup   { position: absolute; left: 96px; top: 86px; --hl-tile: 88px; }
+  .card__eyebrow  { position: absolute; left: 96px; top: 330px; font-size: 24px; }
+  .card__headline { position: absolute; left: 92px; top: 380px; width: 1500px;
+                    font-size: 176px; }
+  .card__body     { position: absolute; left: 96px; top: 760px; width: 1100px;
+                    font-size: 40px; line-height: 1.4; }
+  .card__tag      { position: absolute; left: 96px; bottom: 96px; font-size: 20px;
+                    color: var(--hl-text-soft); }
 </style>
 </head>
 <body>
 <div class="card">
-  <!-- White variant, because the ground is a texture. Never recolour in code. -->
-  <img class="card__logo" src="../assets/logos/northlight-mark-white.svg" alt="Northlight" />
-  <p class="brand-eyebrow card__eyebrow">Sample format</p>
-  <h1 class="brand-headline card__headline">A title card,<br>built from real files</h1>
-  <p class="brand-body card__foot">Replace this with your own approved reference.</p>
+  <!-- Green tile, CREAM mark file. Never recolour in code. -->
+  <div class="hl-lockup card__lockup">
+    <span class="hl-tile"><img src="../assets/logos/hotelink-mark-cream.svg" alt="" /></span>
+    <span class="hl-wordmark">hotelink</span>
+  </div>
+  <p class="hl-eyebrow card__eyebrow">The data platform for independent hotels</p>
+  <h1 class="hl-headline card__headline">Your hotel.<br><span class="hl-beat">Connected.</span></h1>
+  <p class="hl-body card__body">Every system you run, finally in one place.</p>
+  <p class="hl-eyebrow card__tag">Built with Proper Hospitality</p>
 </div>
 </body>
 </html>

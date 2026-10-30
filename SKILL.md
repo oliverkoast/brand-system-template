@@ -1,6 +1,6 @@
 ---
-name: brand-design-system
-description: Use this skill to generate on-brand collateral from a code-owned design system, for production or for throwaway mocks. Contains the brand contract, real tokens, real self-hosted fonts, real logo files, an approved texture set, coded templates, and an exportable logo animation. ONE system for every format; only the canvas, lockup, and margins change.
+name: hotelink-brand
+description: Use this skill to make on-brand hotelink collateral (social posts, title cards, logo sting, connected-systems strips). Contains the brand contract, tokens from the live site, self-hosted Literata and IBM Plex Sans, the real mark files, the 17 connected-system logos, coded templates, and an exportable logo sting.
 user-invocable: true
 ---
 
@@ -13,11 +13,13 @@ Check `qa/FINDINGS.md` before shipping anything.
 - **ONE system, many formats.** Colour and type are identical everywhere. Only the canvas, the
   lockup, and the margins change per piece.
 - **Reference real asset files. Never redraw, regenerate, or recolour a logo in code.**
-- **Pick the logo variant by ground, not by preference:** `-ink` on paper/white/sand, `-white`
-  on texture/ink/harbour. Approved variants are separate real files.
-- **Textures are files, not CSS gradients.** Place a real file from `assets/textures/`.
+- **Pick the mark by ground, not by preference:** `-green` on paper/white/sunken and inside the
+  paper tile, `-cream` on accent-strong/rail and inside the green tile. Separate real files.
+- **Flat grounds only.** Hotelink has no texture set; never add a gradient.
+- **The wordmark is type:** lowercase "hotelink", Georgia 700, -4.67%. See H-02.
+- **Partner logos** only in a "Connected systems" strip, never recoloured (H-08).
 - **Use only defined tokens.** Never invent a hex, weight, or size.
-- **Never place white type on paper.** White belongs on texture, ink, or harbour only.
+- **Never place reverse type on paper.** Reverse belongs on accent-strong or rail only.
 - **Never invent a name, date, figure, quote, or claim.** If it is missing, ask.
 - If any value or asset is missing or flagged `$verify` / PENDING, **stop and flag it.**
 

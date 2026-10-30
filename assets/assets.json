@@ -1,66 +1,265 @@
 {
-  "$description": "Approved asset manifest. Claude references images ONLY from this list, never invents or substitutes stock, and never shows a placeholder when a committed file exists. A file sitting in assets/ that is NOT listed here is not selectable, and that is intentional.",
-
+  "$description": "Approved asset manifest. Claude references images ONLY from this list, never invents or substitutes stock. A file in assets/ that is NOT listed here is not selectable, and that is intentional.",
   "$labeling": {
-    "key": "Deterministic id. One entry per approved asset, so the wrong file cannot be picked.",
-    "path": "In-repo committed file. Render from it directly.",
-    "kind": "logo | texture | photo",
-    "rights": "Ownership plus any release note. Unclear rights means NOT approved for publishing.",
+    "key": "Deterministic id. One entry per approved asset.",
+    "path": "In-repo committed file.",
+    "kind": "logo | partner-logo | reference",
+    "rights": "Unclear rights means NOT approved for publishing.",
     "status": "in-repo | pending"
   },
-
   "$rules": {
-    "size": "Every committed image must be under 5 MB. Some design tools silently drop larger files on sync. For opaque photographic assets, keep full resolution and re-encode as JPEG q=96 4:4:4 rather than downscaling. Anything with transparency stays PNG.",
-    "no_css_gradients": "Never substitute a CSS gradient for a texture. Place a real file. A CSS gradient has no grain and no optical break and reads as generic immediately.",
-    "no_recolor": "Approved colour variants are separate real files. Never invert, filter, or recolour a logo to make one.",
-    "rights": "Unclear rights means NOT approved. Anything with unverified provenance is comps-only until a human confirms it. A filename is not provenance."
+    "size": "Every committed image under 5 MB. Opaque photos: JPEG q=96 4:4:4 at full resolution. Transparency stays PNG.",
+    "no_gradients": "Hotelink has no texture set. Never substitute a gradient or generated texture.",
+    "no_recolor": "Approved colour variants are separate real files. Never invert, filter, or recolour a logo, including partner logos.",
+    "rights": "Unclear rights means NOT approved. A filename is not provenance."
   },
-
   "usage": {
-    "$rule": "Match the piece's format first, then the slot. Use ONLY an asset listed for that slot. If nothing fits, show a labeled slot and flag it.",
-    "card-16x9":  { "ground": ["texture-dawn-01", "texture-dusk-02"], "lockup": ["northlight-mark-white"] },
-    "social-1x1": { "panel":  ["texture-dawn-01", "texture-dusk-02"], "lockup": ["northlight-mark-ink"] },
-    "sting":      { "sheen":  ["texture-dawn-01", "texture-dusk-02"], "lockup": ["northlight-mark-white"] }
+    "$rule": "Match the piece's format first, then the slot. Use ONLY an asset listed for that slot.",
+    "og-1200x630": {
+      "tile-mark": [
+        "hotelink-mark-cream"
+      ],
+      "diagram-tile-mark": [
+        "hotelink-mark-green"
+      ]
+    },
+    "card-16x9": {
+      "tile-mark": [
+        "hotelink-mark-cream"
+      ]
+    },
+    "social-1x1": {
+      "tile-mark": [
+        "hotelink-mark-cream"
+      ]
+    },
+    "sting": {
+      "mark": [
+        "hotelink-mark-cream"
+      ]
+    },
+    "connected-systems-strip": {
+      "logos": [
+        "partner-infor",
+        "partner-synxis",
+        "partner-toast",
+        "partner-opentable",
+        "partner-tripleseat",
+        "partner-amadeus",
+        "partner-salesforce",
+        "partner-duetto",
+        "partner-lighthouse",
+        "partner-str",
+        "partner-revinate",
+        "partner-tripadvisor",
+        "partner-alice",
+        "partner-ukg",
+        "partner-coyle",
+        "partner-forbes",
+        "partner-slack"
+      ],
+      "label": "Connected systems",
+      "order": "as listed (site order)"
+    }
   },
-
   "logos": {
-    "northlight-mark-ink": {
-      "path": "assets/logos/northlight-mark-ink.svg",
-      "kind": "logo", "status": "in-repo",
-      "alt": "Northlight mark",
-      "notes": "For paper, white, and sand grounds. SVG, so there is no maximum placement size.",
-      "rights": "Sample asset, MIT with this template. Replace with yours."
+    "hotelink-mark-green": {
+      "path": "assets/logos/hotelink-mark-green.svg",
+      "kind": "logo",
+      "status": "in-repo",
+      "alt": "hotelink",
+      "source": "https://hotelink.ai/favicon-light-v3.svg (unmodified)",
+      "notes": "Green bars #1F3A30, gold link #CDB68A. For light grounds and inside the paper tile. SVG, no size ceiling.",
+      "rights": "Hotelink. Taken from the live site; confirm with Hotelink before external publishing."
     },
-    "northlight-mark-white": {
-      "path": "assets/logos/northlight-mark-white.svg",
-      "kind": "logo", "status": "in-repo",
-      "alt": "Northlight mark, reversed",
-      "notes": "For texture, ink, and harbour grounds.",
-      "rights": "Sample asset, MIT with this template. Replace with yours."
+    "hotelink-mark-cream": {
+      "path": "assets/logos/hotelink-mark-cream.svg",
+      "kind": "logo",
+      "status": "in-repo",
+      "alt": "hotelink",
+      "source": "https://hotelink.ai/favicon-dark-v3.svg (unmodified)",
+      "notes": "Cream bars #F3EAD9, gold link #CDB68A. For dark grounds and inside the green tile.",
+      "rights": "Hotelink. Taken from the live site; confirm with Hotelink before external publishing."
     }
   },
-
-  "textures": {
-    "texture-dawn-01": {
-      "path": "assets/textures/texture-dawn-01.png",
-      "kind": "texture", "status": "in-repo",
-      "size": "1200x800",
-      "alt": "Cool blue falling into a warm horizon of light, fine grain",
-      "notes": "The warm default. Card grounds and social panels.",
-      "rights": "Generated for this template, MIT. Replace with yours."
+  "partners": {
+    "partner-infor": {
+      "path": "assets/partners/partner-infor.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Infor HMS",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/infor.svg",
+      "rights": "Third-party trademark of Infor HMS's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
     },
-    "texture-dusk-02": {
-      "path": "assets/textures/texture-dusk-02.png",
-      "kind": "texture", "status": "in-repo",
-      "size": "1200x800",
-      "alt": "Deep violet-slate with a soft light source upper left, fine grain",
-      "notes": "The cooler alternate. Use where the piece should feel serious rather than warm.",
-      "rights": "Generated for this template, MIT. Replace with yours."
+    "partner-synxis": {
+      "path": "assets/partners/partner-synxis.png",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Aven Hospitality (SynXis)",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/synxis.png",
+      "rights": "Third-party trademark of Aven Hospitality (SynXis)'s owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset.",
+      "native_size": "308x140",
+      "notes": "Raster. Native 308x140px is a hard ceiling; never place larger (H-09)."
+    },
+    "partner-toast": {
+      "path": "assets/partners/partner-toast.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Toast",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/toast.svg",
+      "rights": "Third-party trademark of Toast's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-opentable": {
+      "path": "assets/partners/partner-opentable.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "OpenTable",
+      "strip_height": "36px",
+      "source": "https://hotelink.ai/logos/opentable.svg",
+      "rights": "Third-party trademark of OpenTable's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-tripleseat": {
+      "path": "assets/partners/partner-tripleseat.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Tripleseat",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/tripleseat.svg",
+      "rights": "Third-party trademark of Tripleseat's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-amadeus": {
+      "path": "assets/partners/partner-amadeus.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Amadeus Delphi and Demand360",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/amadeus.svg",
+      "rights": "Third-party trademark of Amadeus Delphi and Demand360's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-salesforce": {
+      "path": "assets/partners/partner-salesforce.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Salesforce",
+      "strip_height": "36px",
+      "source": "https://hotelink.ai/logos/salesforce.svg",
+      "rights": "Third-party trademark of Salesforce's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-duetto": {
+      "path": "assets/partners/partner-duetto.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Duetto",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/duetto.svg",
+      "rights": "Third-party trademark of Duetto's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-lighthouse": {
+      "path": "assets/partners/partner-lighthouse.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Lighthouse",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/lighthouse.svg",
+      "rights": "Third-party trademark of Lighthouse's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-str": {
+      "path": "assets/partners/partner-str.png",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "STR",
+      "strip_height": "40px",
+      "source": "https://hotelink.ai/logos/str.png",
+      "rights": "Third-party trademark of STR's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset.",
+      "native_size": "1181x1181",
+      "notes": "Raster. Native 1181x1181px is a hard ceiling; never place larger (H-09)."
+    },
+    "partner-revinate": {
+      "path": "assets/partners/partner-revinate.png",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Revinate",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/revinate.png",
+      "rights": "Third-party trademark of Revinate's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset.",
+      "native_size": "600x94",
+      "notes": "Raster. Native 600x94px is a hard ceiling; never place larger (H-09)."
+    },
+    "partner-tripadvisor": {
+      "path": "assets/partners/partner-tripadvisor.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Tripadvisor",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/tripadvisor.svg",
+      "rights": "Third-party trademark of Tripadvisor's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-alice": {
+      "path": "assets/partners/partner-alice.png",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "ALICE",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/alice.png",
+      "rights": "Third-party trademark of ALICE's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset.",
+      "native_size": "471x119",
+      "notes": "Raster. Native 471x119px is a hard ceiling; never place larger (H-09)."
+    },
+    "partner-ukg": {
+      "path": "assets/partners/partner-ukg.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "UKG",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/ukg.svg",
+      "rights": "Third-party trademark of UKG's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-coyle": {
+      "path": "assets/partners/partner-coyle.png",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Coyle Hospitality",
+      "strip_height": "40px",
+      "source": "https://hotelink.ai/logos/coyle.png",
+      "rights": "Third-party trademark of Coyle Hospitality's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset.",
+      "native_size": "200x200",
+      "notes": "Raster. Native 200x200px is a hard ceiling; never place larger (H-09)."
+    },
+    "partner-forbes": {
+      "path": "assets/partners/partner-forbes.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Forbes Travel Guide",
+      "strip_height": "36px",
+      "source": "https://hotelink.ai/logos/forbes.svg",
+      "rights": "Third-party trademark of Forbes Travel Guide's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
+    },
+    "partner-slack": {
+      "path": "assets/partners/partner-slack.svg",
+      "kind": "partner-logo",
+      "status": "in-repo",
+      "alt": "Slack",
+      "strip_height": "28px",
+      "source": "https://hotelink.ai/logos/slack.svg",
+      "rights": "Third-party trademark of Slack's owner. Use only in a 'Connected systems' strip as hotelink.ai does. Not a Hotelink asset."
     }
   },
-
+  "references": {
+    "og-1200x630": {
+      "path": "reference/og-1200x630.jpg",
+      "kind": "reference",
+      "status": "in-repo",
+      "size": "1200x630",
+      "source": "https://hotelink.ai/og-hotelink-v2.jpg",
+      "alt": "hotelink social card: 'Your hotel. Connected.' with a system diagram",
+      "rights": "Hotelink."
+    }
+  },
   "photos": {
-    "$description": "Empty by design. Add your own, with a rights note on every entry. Anything whose provenance you cannot state is comps-only.",
+    "$description": "Empty. Add Hotelink's own, with a rights note on every entry.",
     "$status": "EMPTY"
   }
 }

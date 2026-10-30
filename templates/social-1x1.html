@@ -1,42 +1,44 @@
 <!doctype html>
 <!--
-  TEMPLATE — square social post, 1080x1080.
+  TEMPLATE: square social post, 1080x1080.
 
-  The everyday piece: paper ground with one texture panel on it. Note the logo
-  is the INK variant here, because it sits on paper, not on the panel. That
-  choice is deterministic (see brand.json colour_usage), not a judgement call.
+  Paper ground, lockup, eyebrow, two-beat headline, and a deep-green
+  accent-strong band at the foot carrying one line in reverse type. The band
+  is the site's contact band, not a texture: Hotelink grounds are flat.
+
+  Not measured against a reference (none exists for this format, F-06).
 
   Export:  kit/render.sh templates/social-1x1.html out/social.png 1080 1080
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Northlight — social 1:1</title>
+<title>hotelink: social 1:1</title>
 <link rel="stylesheet" href="../styles.css" />
 <style>
-  .post { --panel: url("../assets/textures/texture-dusk-02.png"); }
   html, body { margin: 0; padding: 0; }
   .post { position: relative; width: 1080px; height: 1080px; overflow: hidden;
-          background: var(--brand-bg); }
-  .post__panel { position: absolute; left: 64px; top: 64px; right: 64px; height: 470px;
-                 border-radius: var(--brand-radius);
-                 background-image: var(--panel);
-                 background-size: cover; background-position: center; }
-  .post__logo     { position: absolute; left: 112px; top: 112px; width: 88px; height: auto; }
-  .post__eyebrow  { position: absolute; left: 68px; top: 588px; font-size: 20px; }
-  .post__headline { position: absolute; left: 64px; top: 628px; width: 940px; font-size: 96px; }
-  .post__body     { position: absolute; left: 68px; bottom: 84px; width: 880px; font-size: 26px; }
+          background: var(--hl-bg); }
+  .post__lockup   { position: absolute; left: 80px; top: 80px; --hl-tile: 64px; }
+  .post__eyebrow  { position: absolute; left: 80px; top: 260px; font-size: 18px; }
+  .post__headline { position: absolute; left: 76px; top: 300px; width: 920px;
+                    font-size: 120px; }
+  .post__band     { position: absolute; left: 0; right: 0; bottom: 0; height: 280px;
+                    background: var(--hl-bg-dark); }
+  .post__body     { position: absolute; left: 80px; bottom: 110px; width: 900px;
+                    font-size: 34px; line-height: 1.4; color: var(--hl-reverse); }
 </style>
 </head>
 <body>
 <div class="post">
-  <div class="post__panel"></div>
-  <!-- White variant sits ON the panel. -->
-  <img class="post__logo" src="../assets/logos/northlight-mark-white.svg" alt="Northlight" />
-  <p class="brand-eyebrow post__eyebrow">Sample format</p>
-  <h1 class="brand-headline post__headline">Paper ground,<br>one panel</h1>
-  <p class="brand-body post__body">Ink type on paper, reversed type on the panel. Never the
-     other way round.</p>
+  <div class="hl-lockup post__lockup">
+    <span class="hl-tile"><img src="../assets/logos/hotelink-mark-cream.svg" alt="" /></span>
+    <span class="hl-wordmark">hotelink</span>
+  </div>
+  <p class="hl-eyebrow post__eyebrow">The data platform for independent hotels</p>
+  <h1 class="hl-headline post__headline">Your hotel.<br><span class="hl-beat">Connected.</span></h1>
+  <div class="post__band"></div>
+  <p class="hl-body post__body">Every system your hotel runs, finally in one place.</p>
 </div>
 </body>
 </html>

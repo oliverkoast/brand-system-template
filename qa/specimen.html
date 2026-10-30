@@ -1,116 +1,82 @@
 <!doctype html>
 <!--
-  QA SPECIMEN — every asset on light AND dark grounds.
+  QA SPECIMEN: every asset on light AND dark grounds.
 
   Purpose: catch anything invisible, blank, wrong-variant, stretched, or soft.
-  If an asset looks wrong here, it is a defect to fix or flag, not to patch in
-  whatever layout surfaced it. "Looked right in the design tool" is not proof.
-
+  If an asset looks wrong here, it is a defect to fix or flag, not to patch.
   This file is the QA harness. It is never shipped as collateral.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Northlight — QA Specimen</title>
+<title>hotelink: QA Specimen</title>
 <link rel="stylesheet" href="../styles.css" />
 <style>
-  body { margin:0; padding:28px; background:#fff; color:#111;
-         font-family: var(--brand-font-text); }
-  h2 { font-family: var(--brand-font-display); font-weight:700;
-       letter-spacing:-0.03em; margin:40px 0 8px; }
+  body { margin:0; padding:28px; background:#fff; color:#111; font-family: var(--hl-font-ui); }
+  h2 { font-family: var(--hl-font-display); font-weight:500; margin:40px 0 8px; }
   .note { font-size:13px; color:#666; margin:0 0 14px; max-width:70ch; line-height:1.5; }
   .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-  .cell { border-radius:8px; padding:22px; display:flex; align-items:center;
-          justify-content:center; min-height:110px; }
+  .cell { border-radius:8px; padding:22px; display:flex; align-items:center; justify-content:center; min-height:110px; }
   .cell img { width:72px; height:auto; display:block; }
-  .g-paper{background:#F6F3EE;border:1px solid #eee} .g-white{background:#fff;border:1px solid #eee}
-  .g-harbour{background:#3B5A72} .g-ink{background:#1B2430}
+  .g-paper{background:#F6F2EB;border:1px solid #eee} .g-white{background:#FFFDF9;border:1px solid #eee}
+  .g-green{background:#1F3A30} .g-rail{background:#1E2723}
   .rowlbl { font-size:12px; color:#444; margin:18px 0 5px; }
-  .sw { display:grid; grid-template-columns:repeat(7,1fr); gap:8px; }
-  .sw div { height:76px; border-radius:8px; border:1px solid rgba(0,0,0,.08);
-            font-size:10px; padding:7px; line-height:1.4; }
-  .tex { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
-  .tex img { width:100%; height:190px; object-fit:cover; border-radius:8px; display:block; }
-  .tex figcaption { font-size:11px; color:#666; margin-top:6px; }
-  .flag { background:#FFF3F3; border-left:3px solid #B00020; padding:10px 14px;
-          font-size:13px; margin:12px 0; max-width:78ch; line-height:1.55; }
+  .sw { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; }
+  .sw div { height:76px; border-radius:8px; border:1px solid rgba(0,0,0,.08); font-size:10px; padding:7px; line-height:1.4; }
+  .lockups { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .lockups > div { border-radius:8px; padding:40px; display:flex; align-items:center; justify-content:center; }
+  .strip { background:#F1ECE4; border-block:1px solid rgba(74,56,36,.12); padding:22px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px 0; }
+  .strip img { width:auto; max-width:160px; object-fit:contain; margin:0 32px; }
+  .flag { background:#FFF3F3; border-left:3px solid #B00020; padding:10px 14px; font-size:13px; margin:12px 0; max-width:78ch; line-height:1.55; }
   .ok { background:#F1F8F3; border-left-color:#1B7F4B; }
+  .ref img { width:100%; max-width:900px; border-radius:8px; display:block; }
 </style>
 </head>
 <body>
 
-<h2>1 · Logos on four grounds</h2>
-<p class="note">
-  The ink variant should read on paper and white and vanish on ink. The white variant should read
-  on harbour and ink and vanish on white. Anything that does not behave that way is a defect.
-</p>
+<h2>1 · Mark files on four grounds</h2>
+<p class="note">The green mark should read on paper and white and sink on green and rail. The cream mark should read on green and rail and vanish on paper. Anything else is a defect.</p>
+<div class="rowlbl">hotelink-mark-green.svg</div>
+<div class="grid"><div class="cell g-paper"><img src="../assets/logos/hotelink-mark-green.svg"></div><div class="cell g-white"><img src="../assets/logos/hotelink-mark-green.svg"></div><div class="cell g-green"><img src="../assets/logos/hotelink-mark-green.svg"></div><div class="cell g-rail"><img src="../assets/logos/hotelink-mark-green.svg"></div></div>
+<div class="rowlbl">hotelink-mark-cream.svg</div>
+<div class="grid"><div class="cell g-paper"><img src="../assets/logos/hotelink-mark-cream.svg"></div><div class="cell g-white"><img src="../assets/logos/hotelink-mark-cream.svg"></div><div class="cell g-green"><img src="../assets/logos/hotelink-mark-cream.svg"></div><div class="cell g-rail"><img src="../assets/logos/hotelink-mark-cream.svg"></div></div>
+<p class="flag ok"><strong>SVG</strong>, taken unmodified from the site's favicons. No size ceiling.</p>
 
-<div class="rowlbl">northlight-mark-ink.svg</div>
-<div class="grid">
-  <div class="cell g-paper"><img src="../assets/logos/northlight-mark-ink.svg"></div>
-  <div class="cell g-white"><img src="../assets/logos/northlight-mark-ink.svg"></div>
-  <div class="cell g-harbour"><img src="../assets/logos/northlight-mark-ink.svg"></div>
-  <div class="cell g-ink"><img src="../assets/logos/northlight-mark-ink.svg"></div>
+<h2>2 · Lockups</h2>
+<p class="note">Tile + real mark file + wordmark set as type. Left: green tile on paper. Right: inverted paper tile on rail.</p>
+<div class="lockups">
+  <div class="g-paper"><div class="hl-lockup" style="--hl-tile:68px"><span class="hl-tile"><img src="../assets/logos/hotelink-mark-cream.svg" alt=""></span><span class="hl-wordmark">hotelink</span></div></div>
+  <div class="g-rail"><div class="hl-lockup hl-lockup--on-dark" style="--hl-tile:68px"><span class="hl-tile"><img src="../assets/logos/hotelink-mark-green.svg" alt=""></span><span class="hl-wordmark">hotelink</span></div></div>
 </div>
+<p class="flag"><strong>H-02, open.</strong> The wordmark face is Georgia, a system font with no file here. On a machine without Georgia (most Linux, including CI) this line falls back to Times New Roman or a generic serif and is <em>not</em> on brand.</p>
 
-<div class="rowlbl">northlight-mark-white.svg</div>
-<div class="grid">
-  <div class="cell g-paper"><img src="../assets/logos/northlight-mark-white.svg"></div>
-  <div class="cell g-white"><img src="../assets/logos/northlight-mark-white.svg"></div>
-  <div class="cell g-harbour"><img src="../assets/logos/northlight-mark-white.svg"></div>
-  <div class="cell g-ink"><img src="../assets/logos/northlight-mark-white.svg"></div>
-</div>
-<p class="flag ok">
-  <strong>These are SVG</strong>, so there is no maximum placement size and no upscale problem.
-  If yours are raster, record each native width in DESIGN.md and treat it as a hard ceiling.
-</p>
-
-<h2>2 · Colour</h2>
-<p class="note">From the palette. No value here was sampled off a screenshot.</p>
-<div class="sw">
-  <div style="background:#FFFFFF">WHITE<br>#FFFFFF</div>
-  <div style="background:#F6F3EE">PAPER<br>#F6F3EE</div>
-  <div style="background:#E3D9CB">SAND<br>#E3D9CB</div>
-  <div style="background:#E8A13C">BEAM<br>#E8A13C</div>
-  <div style="background:#3B5A72;color:#fff">HARBOUR<br>#3B5A72</div>
-  <div style="background:#2E3742;color:#fff">SLATE<br>#2E3742</div>
-  <div style="background:#1B2430;color:#fff">INK<br>#1B2430</div>
-</div>
-
-<h2>3 · Textures</h2>
-<p class="note">
-  Real files. Compare the grain and the optical break against anything you could write in CSS.
-  That difference is the whole reason for the no-CSS-gradients rule.
-</p>
-<div class="tex">
-  <figure><img src="../assets/textures/texture-dawn-01.png"><figcaption>texture-dawn-01 · warm default</figcaption></figure>
-  <figure><img src="../assets/textures/texture-dusk-02.png"><figcaption>texture-dusk-02 · cooler alternate</figcaption></figure>
-</div>
+<h2>3 · Colour</h2>
+<p class="note">Verbatim from the site's <code>:root</code>. No value here was sampled off an image.</p>
+<div class="sw"><div style="background:#F6F2EB">PAPER<br>#F6F2EB</div><div style="background:#FFFDF9">WHITE<br>#FFFDF9</div><div style="background:#F1ECE4">SUNKEN<br>#F1ECE4</div><div style="background:#ECE6DC">SOFT<br>#ECE6DC</div><div style="background:#E6EDE6">ACCENT-TINT<br>#E6EDE6</div><div style="background:#9A7B45;color:#fff">GOLD<br>#9A7B45</div><div style="background:#9A8F82;color:#fff">FAINT<br>#9A8F82</div><div style="background:#756A5E;color:#fff">MUTED<br>#756A5E</div><div style="background:#2F5C4A;color:#fff">ACCENT<br>#2F5C4A</div><div style="background:#1F3A30;color:#fff">ACCENT-STRONG<br>#1F3A30</div><div style="background:#1E2723;color:#fff">RAIL<br>#1E2723</div><div style="background:#2A2520;color:#fff">INK<br>#2A2520</div></div>
 
 <h2>4 · Type</h2>
-<p class="note">
-  The real self-hosted fonts must load here. If any line below looks like Helvetica, an
-  <code>@font-face</code> src is pointing at a file that is not there.
-</p>
-<p class="brand-headline" style="font-size:64px">Space Grotesk Bold, -4%, 95%</p>
-<p class="brand-eyebrow" style="margin-top:22px">Sora · eyebrow / label</p>
-<p class="brand-body" style="font-size:19px; max-width:60ch; margin-top:10px">
-  Sora Regular body copy. The quick brown fox jumps over the lazy dog, 0123456789. This should be
-  visibly a different family from the headline: rounder, more geometric, less tightly tracked.
-</p>
+<p class="note">The real self-hosted fonts must load here. If the headline looks like Georgia or the body like Arial, an <code>@font-face</code> src is broken.</p>
+<p class="hl-eyebrow">The data platform for independent hotels</p>
+<p class="hl-headline" style="font-size:72px;margin-top:10px">Your hotel.<br><span class="hl-beat">Connected.</span></p>
+<p class="hl-body" style="font-size:18px;max-width:60ch;margin-top:14px">IBM Plex Sans 400 body. Every system your hotel runs, finally in one place. The quick brown fox jumps over the lazy dog, 0123456789. <strong style="color:var(--hl-text);font-weight:600">Plex 600 for emphasis.</strong></p>
 
-<h2>5 · Templates and motion</h2>
+<h2>5 · Connected systems strip</h2>
+<p class="note">All 17 third-party logos at the site's strip heights, on the sunken band, in site order. These are not Hotelink assets. PNGs are raster: see H-09.</p>
+<p class="rowlbl" style="text-align:center">Connected systems</p>
+<div class="strip"><img style="height:28px" src="../assets/partners/partner-infor.svg" alt="Infor HMS" title="partner-infor"><img style="height:28px" src="../assets/partners/partner-synxis.png" alt="Aven Hospitality (SynXis)" title="partner-synxis"><img style="height:28px" src="../assets/partners/partner-toast.svg" alt="Toast" title="partner-toast"><img style="height:36px" src="../assets/partners/partner-opentable.svg" alt="OpenTable" title="partner-opentable"><img style="height:28px" src="../assets/partners/partner-tripleseat.svg" alt="Tripleseat" title="partner-tripleseat"><img style="height:28px" src="../assets/partners/partner-amadeus.svg" alt="Amadeus Delphi and Demand360" title="partner-amadeus"><img style="height:36px" src="../assets/partners/partner-salesforce.svg" alt="Salesforce" title="partner-salesforce"><img style="height:28px" src="../assets/partners/partner-duetto.svg" alt="Duetto" title="partner-duetto"><img style="height:28px" src="../assets/partners/partner-lighthouse.svg" alt="Lighthouse" title="partner-lighthouse"><img style="height:40px" src="../assets/partners/partner-str.png" alt="STR" title="partner-str"><img style="height:28px" src="../assets/partners/partner-revinate.png" alt="Revinate" title="partner-revinate"><img style="height:28px" src="../assets/partners/partner-tripadvisor.svg" alt="Tripadvisor" title="partner-tripadvisor"><img style="height:28px" src="../assets/partners/partner-alice.png" alt="ALICE" title="partner-alice"><img style="height:28px" src="../assets/partners/partner-ukg.svg" alt="UKG" title="partner-ukg"><img style="height:40px" src="../assets/partners/partner-coyle.png" alt="Coyle Hospitality" title="partner-coyle"><img style="height:36px" src="../assets/partners/partner-forbes.svg" alt="Forbes Travel Guide" title="partner-forbes"><img style="height:28px" src="../assets/partners/partner-slack.svg" alt="Slack" title="partner-slack"></div>
+
+<h2>6 · Reference</h2>
+<div class="ref"><img src="../reference/og-1200x630.jpg" alt="Social card reference"></div>
+
+<h2>7 · Templates and motion</h2>
 <ul style="font-size:14px; line-height:2">
   <li><a href="../templates/card-16x9.html">templates/card-16x9.html</a></li>
   <li><a href="../templates/social-1x1.html">templates/social-1x1.html</a></li>
   <li><a href="../animation/logo-sting.html">animation/logo-sting.html</a> · click to replay</li>
   <li><a href="../animation/logo-sting.html?bg=none">animation/logo-sting.html?bg=none</a> · transparent</li>
 </ul>
-<p class="flag">
-  <strong>F-06, open.</strong> There is no <code>reference/</code> folder, so nothing above can be
-  diffed against approved artwork. Add yours and measure. See kit/NEW-BRAND.md step 4.
-</p>
+<p class="flag"><strong>F-06, open.</strong> Only the social card has an approved reference. The 16:9, 1:1 and sting layouts are derived from it, not measured.</p>
 
 </body>
 </html>

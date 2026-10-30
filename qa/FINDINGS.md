@@ -6,61 +6,146 @@ for Claude to fill. Nothing below has been silently resolved.
 Status key: **OPEN** needs a decision or a re-export. **NOTED** understood, no action needed.
 **RESOLVED** decided, with the decision and its consequences recorded.
 
-> Template note: F-01 to F-03 are **worked examples**, kept to show the format and the standard
-> of evidence. Delete them and write your own. F-04 and F-05 are real and apply to any repo built
-> from this template.
+Hotelink entries are H-xx. F-04 to F-06 are carried over from the template and still apply.
 
 ---
 
-## F-01 — EXAMPLE: two sources disagree on a value · OPEN
+## H-01 · No brand book: the live site is the spec · OPEN
 
-*This is what a conflict looks like written down properly.*
+Every token comes from hotelink.ai's production CSS (`:root` and `.v-c`), captured 2026-10-30.
+That is real, shipped data, not a sample off a screenshot, but it is not a palette sheet either:
+a site can carry one-off values a designer never approved.
 
-The type sheet specifies a headline line height of **90%**. The approved artwork measures
-**84%** (202px of leading on a 240px type size).
-
-Handled by: the token carries the declared 90%; the template reproduces the measured 84% so it
-still matches the acceptance target; the conflict is named in a comment at the point of override.
-
-**Decision needed:** is 84% the real house setting and the sheet is stale, or did the artwork
-drift? Do not average them.
-
-*How it was measured: the bottom line is 847px wide in the reference and 848px in the template
-render, so the type size matches to within 0.2%. Isolating leading from that gave 202px.*
-
-**Why this entry matters more than it looks.** A model that wants to be helpful picks one and
-moves on, and the brand drifts silently. Writing both numbers down costs one message.
+**Action:** ask Hotelink for the palette and type sheet, then diff. Until then the token file
+carries `$verify` at the top.
 
 ---
 
-## F-02 — EXAMPLE: raster logos with no vector source · OPEN
+## H-02 · Wordmark face is Georgia, a system font with no file · OPEN
 
-*The most common real-world version of this finding.*
+The site sets "hotelink" as live text in `--font-wordmark: Georgia, "Times New Roman", serif`,
+700, -0.0467em. Georgia is a Microsoft font: it is installed on macOS and Windows but **not**
+on most Linux machines, and its licence does not cover redistributing the file in this repo.
 
-If your logos exist only as PNG, every one has a hard maximum placement size, and going above it
-is visibly soft and **cannot be fixed in code**. It also means any format needing a large master
-(cover art, print, large-format) is impossible, and the animation cannot do path-level motion.
+Consequence: every render on a machine without Georgia (CI, a Linux export box) draws the
+wordmark in a fallback serif. The renders in this branch were made on Linux and show exactly
+that.
 
-**Action:** export SVG. Until then, record each file's native width and treat it as a ceiling.
-
-*This template ships SVG logos precisely so the problem does not exist. If yours are raster, this
-finding is real and belongs here with your actual numbers.*
-
----
-
-## F-03 — EXAMPLE: a defect in a supplied asset · OPEN
-
-*What to do when the asset itself is wrong.*
-
-A supplied background has a visible compositing seam about 79% across, present in the original
-file rather than introduced by re-encoding.
-
-**Action:** re-export from source. **Do not retouch it in this repo.** The fix belongs upstream,
-or it will be lost the next time the asset is re-supplied.
+**Decision needed:** (a) license Georgia for embedding, (b) get the wordmark as an SVG outline
+from whoever drew it, or (c) choose an OFL face. (b) is the usual answer. Do not quietly
+substitute Literata, which is a different face.
 
 ---
 
-## F-04 — CSS `mask-image` renders nothing in headless Chrome · NOTED, worked around
+## H-03 · Name casing: "hotelink" vs "Hotelink" · OPEN
+
+The site's wordmark, title tags, and running copy all use lowercase **hotelink**. Internal docs
+and this project use "Hotelink". The wordmark is unambiguous (lowercase). Running copy is not.
+
+**Decision needed:** is lowercase the name in sentences too, or only in the wordmark?
+
+---
+
+## H-04 · Which theme leads: light or dark · OPEN
+
+Two sources disagree.
+
+- Light: `:root` palette, `meta theme-color #f6f2eb`, the social card's left half, the ad's
+  paper grounds.
+- Dark: the live page renders with `<body class="v-c">`, the dark theme, so visitors today see
+  a `#1E2723` ground. The ad's end card is a deep green ground.
+
+Handled by: light is the default role set; dark ships verbatim as `.hl-theme-dark`. Nothing was
+averaged.
+
+**Decision needed:** which one is the brand's default ground for collateral?
+
+---
+
+## H-05 · Two mark colours live outside the palette · NOTED
+
+`#CDB68A` (the link-shaped crossbar) and `#F3EAD9` (cream bars) appear only inside the logo
+files and as hardcoded hex in the site CSS (`.brand-mark`, `.demo-brand-mark`), not in `:root`.
+They are recorded as `logo-color` tokens, explicitly not for layout. `#CDB68A` is also close to,
+but not the same as, the `gold` token `#9A7B45`. Do not merge them.
+
+---
+
+## H-06 · Dark-header mark has no file · OPEN
+
+On the dark theme the site's header tile is paper `#F6F2EB` with bars drawn in currentColor
+`#1E2723` (rail). The nearest file is `hotelink-mark-green.svg`, whose bars are `#1F3A30`.
+The two greens differ by one step per channel; visually identical, technically not the same
+asset.
+
+Handled by: `.hl-lockup--on-dark` uses the green file. **Action:** confirm that is acceptable,
+or supply a rail-bar file. Do not set a `fill` in code.
+
+---
+
+## H-07 · Social-card diagram has no source file · OPEN
+
+The right half of `reference/og-1200x630.jpg` (system boxes PMS, POS, Sales, Revenue,
+Operations; gold connector lines; concentric rings; central tile) exists only inside that JPEG.
+It is why `og-1200x630` has a reference but `template: null`.
+
+**Action:** get the source (Figma frame or SVG). Do not trace it from the JPEG.
+
+---
+
+## H-08 · Third-party logos: rights and "partner" wording · OPEN
+
+The 17 logos in `assets/partners/` are other companies' trademarks, taken from the site's
+"Connected systems" strip. The site's nav calls that area "Partners", but the strip label says
+"Connected systems" and the section under `#partners` is about Proper Hospitality, not these
+vendors.
+
+Handled by: manifested with a rights note each, usage limited to a "Connected systems" strip.
+**Decision needed:** does Hotelink have formal partnerships with any of them, and permission to
+show each mark outside its own site (decks, ads)? Until confirmed, use them nowhere but a
+strip that mirrors the site.
+
+---
+
+## H-09 · Five partner logos are raster · NOTED
+
+PNG with native sizes: ALICE 471x119, Coyle 200x200, Revinate 600x94, STR 1181x1181,
+SynXis 308x140. Each native width is a hard ceiling. At strip height (28 to 40px) all are fine;
+at deck or print size Coyle and SynXis will go soft first. If they are needed large, get SVGs
+from the vendors' press kits.
+
+---
+
+## H-10 · Headline tracking and wordmark weight: CSS vs social card · OPEN
+
+Measured against `reference/og-1200x630.jpg`:
+
+- **Headline tracking.** The site CSS sets `h1` with no `letter-spacing`. "Your hotel.
+  Connected." in the social card is visibly tighter than untracked Literata 500 at the same
+  size (compare section 4 of the specimen with section 6).
+- **Wordmark weight.** The CSS sets the wordmark at **700**. In the social card it reads as a
+  regular weight.
+
+Handled by: tokens and templates follow the CSS (no tracking, 700). Neither value was guessed
+toward the image.
+
+**Decision needed:** was the social card set by hand in a design tool, or is the CSS stale?
+Measure from the card's source file once H-07 supplies it.
+
+---
+
+## H-11 · Ad green vs site green · OPEN
+
+The 1:48 ad's end card green was sampled from video stills at roughly `#2A5446` to `#21493B`
+(a gradient). That is a compression-affected sample, not a spec, and it matches neither
+`accent` `#2F5C4A` nor `accent-strong` `#1F3A30`.
+
+**Decision needed:** is the ad's green an intentional gradient between the two tokens, or
+drift? Do not add a token for it.
+
+---
+
+## F-04 · CSS `mask-image` renders nothing in headless Chrome · NOTED, worked around
 
 Compositing a texture into a logo's alpha with CSS `mask-image` renders correctly in a normal
 browser window and produces **completely empty frames** in headless Chrome, which is what the
@@ -74,7 +159,7 @@ export blank video.
 
 ---
 
-## F-05 — Chrome `--screenshot` does not preserve alpha · NOTED, worked around
+## F-05 · Chrome `--screenshot` does not preserve alpha · NOTED, worked around
 
 `--default-background-color=00000000` has no effect on the saved PNG on macOS, in either headless
 mode. Output is always opaque.
@@ -86,12 +171,12 @@ against shipping an export that silently produces opaque frames.
 
 ---
 
-## F-06 — No approved references in this template · OPEN
+## F-06 · Only one approved reference · OPEN
 
-`reference/` does not exist, because a reference has to be *your* approved artwork.
+`reference/` holds one approved reference: the site's social card. There is none for 16:9, 1:1, the sting, or the banner.
 
-Until you add yours, the numbers in `templates/` are sensible defaults rather than measured
-values, and nothing can be diffed against anything.
+The card-16x9 and social-1x1 templates borrow the social card's left-half layout, scaled, but
+are not measured against a reference of their own. Nothing can be diffed against them yet.
 
-**Action:** add your approved designs to `reference/`, then follow step 4 of `kit/NEW-BRAND.md`
-to measure the templates against them and record the numbers. This is the step people skip.
+**Action:** get approved 16:9 and 1:1 pieces (a deck title slide, an Instagram post) into
+`reference/`, then follow step 4 of `kit/NEW-BRAND.md`.

@@ -1,93 +1,154 @@
 /* ============================================================
-   NORTHLIGHT (sample brand) — code-owned design system
+   HOTELINK — code-owned design system
 
-   Everything here is a placeholder. Replace the values, keep the structure.
-   The `--brand-` prefix is deliberately generic: rename it to your own
-   (see kit/RENAME.md) so a stray token from another system is obvious.
+   Every value below is copied verbatim from the :root and .v-c blocks of
+   hotelink.ai's production CSS (captured 2026-10-30). No hex here was sampled
+   from an image. Until Hotelink supplies a palette/type sheet, the shipped
+   site IS the spec (qa/FINDINGS.md H-01).
 
    LOGOS are NOT defined here. They are real files in assets/logos/, selected
    by name. Never regenerate or recolour a logo in code.
-   TEXTURES are NOT defined here. They are real files in assets/textures/.
-   Never substitute a CSS gradient for a texture.
+   Hotelink has NO texture set: grounds are flat colour. Never invent one.
    ============================================================ */
 
 @import url("./fonts/fonts.css");
 
 :root {
-  /* ---------- palette ---------- */
-  --brand-white:   #FFFFFF;
-  --brand-paper:   #F6F3EE;
-  --brand-sand:    #E3D9CB;
-  --brand-beam:    #E8A13C;
-  --brand-harbour: #3B5A72;
-  --brand-slate:   #2E3742;
-  --brand-ink:     #1B2430;
+  /* ---------- palette (light, :root) ---------- */
+  --hl-paper:         #f6f2eb;
+  --hl-white:         #fffdf9;
+  --hl-sunken:        #f1ece4;
+  --hl-soft:          #ece6dc;
+  --hl-ink:           #2a2520;
+  --hl-muted:         #756a5e;
+  --hl-faint:         #9a8f82;
+  --hl-accent:        #2f5c4a;
+  --hl-accent-strong: #1f3a30;
+  --hl-accent-tint:   #e6ede6;
+  --hl-gold:          #9a7b45;
+  --hl-rail:          #1e2723;
+  --hl-line:          rgba(74, 56, 36, .12);
+  --hl-line-strong:   rgba(74, 56, 36, .22);
 
   /* ---------- semantic roles (consume these, not the palette) ---------- */
-  --brand-bg:          var(--brand-paper);
-  --brand-bg-alt:      var(--brand-white);
-  --brand-bg-dark:     var(--brand-ink);
-  --brand-text:        var(--brand-ink);
-  --brand-text-soft:   var(--brand-slate);
-  --brand-reverse:     var(--brand-white);  /* on texture/ink/harbour ONLY */
-  --brand-accent:      var(--brand-beam);
-  --brand-accent-cool: var(--brand-harbour);
-  --brand-line:        rgba(27, 36, 48, 0.12);
+  --hl-bg:         var(--hl-paper);
+  --hl-bg-raised:  var(--hl-white);
+  --hl-bg-sunken:  var(--hl-sunken);
+  --hl-bg-dark:    var(--hl-accent-strong);
+  --hl-bg-darkest: var(--hl-rail);
+  --hl-text:       var(--hl-ink);
+  --hl-text-soft:  var(--hl-muted);
+  --hl-text-faint: var(--hl-faint);
+  --hl-reverse:    #f6f2eb;            /* = light paper. On accent-strong / rail ONLY.
+                                          Literal so it does not flip in the dark theme. */
 
   /* ---------- type ---------- */
-  --brand-font-display: "Space Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --brand-font-text:    "Sora", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --brand-track-display: -0.04em;
-  --brand-track-text:    -0.01em;
-  --brand-lead-display:  0.95;
+  --hl-font-display:  Literata, Georgia, serif;
+  --hl-font-ui:       "IBM Plex Sans", system-ui, sans-serif;
+  --hl-font-wordmark: Georgia, "Times New Roman", serif;   /* system font, see H-02 */
+  --hl-track-wordmark: -0.0467em;
+  --hl-track-eyebrow:  0.12em;
 
-  /* ---------- spacing (8pt) ---------- */
-  --brand-space-1: 4px;  --brand-space-2: 8px;  --brand-space-3: 16px;
-  --brand-space-4: 24px; --brand-space-5: 40px; --brand-space-6: 64px;
-  --brand-space-7: 96px;
+  /* ---------- shape ---------- */
+  --hl-radius:    14px;
+  --hl-radius-lg: 22px;
+  --hl-wrap:      1180px;
+  --hl-ease:      cubic-bezier(.2, .7, .2, 1);
+  --hl-shadow:    0 1px 2px rgba(42, 37, 32, .05), 0 12px 32px -12px rgba(42, 37, 32, .18);
 
-  --brand-radius: 20px;
+  /* ---------- spacing (8pt, template default, $verify) ---------- */
+  --hl-space-1: 4px;  --hl-space-2: 8px;  --hl-space-3: 16px;
+  --hl-space-4: 24px; --hl-space-5: 40px; --hl-space-6: 64px;
+  --hl-space-7: 96px;
+}
+
+/* The site's dark theme (.v-c), verbatim. Apply to a piece's root element. */
+.hl-theme-dark {
+  --hl-paper:         #1e2723;
+  --hl-ink:           #f6f2eb;
+  --hl-muted:         #a9bdb2;
+  --hl-faint:         #6c8c7e;
+  --hl-white:         #22302a;
+  --hl-sunken:        #1b231f;
+  --hl-soft:          #27332e;
+  --hl-line:          rgba(230, 237, 230, .1);
+  --hl-line-strong:   rgba(230, 237, 230, .2);
+  --hl-accent:        #c8d5cc;
+  --hl-accent-strong: #f6f2eb;
+  --hl-accent-tint:   #27332e;
+  /* Roles resolve where they are declared, so re-declare them here or they
+     keep their light-theme values. */
+  --hl-bg:         var(--hl-paper);
+  --hl-bg-raised:  var(--hl-white);
+  --hl-bg-sunken:  var(--hl-sunken);
+  --hl-bg-dark:    var(--hl-accent-strong);
+  --hl-text:       var(--hl-ink);
+  --hl-text-soft:  var(--hl-muted);
+  --hl-text-faint: var(--hl-faint);
+  background: var(--hl-paper);
+  color: var(--hl-ink);
 }
 
 /* ============================================================ TYPE */
-.brand-headline {
-  font-family: var(--brand-font-display);
-  font-weight: 700;
-  letter-spacing: var(--brand-track-display);
-  line-height: var(--brand-lead-display);
-  color: var(--brand-text);
+.hl-headline {
+  font-family: var(--hl-font-display);
+  font-weight: 500;
+  line-height: 1.02;
+  color: var(--hl-text);
   margin: 0;
   text-wrap: balance;
 }
-.brand-eyebrow {
-  font-family: var(--brand-font-text);
-  font-weight: 400;
-  font-size: 14px;
-  letter-spacing: 0.1em;
+/* The second beat of a two-beat headline ("Your hotel. / Connected.") */
+.hl-headline .hl-beat { color: var(--hl-accent); }
+
+.hl-eyebrow {
+  font-family: var(--hl-font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--hl-track-eyebrow);
   text-transform: uppercase;
-  color: var(--brand-text-soft);
+  color: var(--hl-accent);
   margin: 0;
 }
-.brand-body {
-  font-family: var(--brand-font-text);
+.hl-body {
+  font-family: var(--hl-font-ui);
   font-weight: 400;
-  letter-spacing: var(--brand-track-text);
-  line-height: 1.5;
-  color: var(--brand-text-soft);
+  line-height: 1.65;
+  color: var(--hl-text-soft);
   margin: 0;
   text-wrap: pretty;
 }
+.hl-wordmark {
+  font-family: var(--hl-font-wordmark);
+  font-weight: 700;
+  letter-spacing: var(--hl-track-wordmark);
+  line-height: 1;
+  color: var(--hl-text);
+}
+
+/* ============================================================ LOCKUP
+   Tile + wordmark, as in the site header. The tile is a token-coloured
+   rounded square; the mark inside is the real cream file, never recoloured.
+   Proportions from the site: tile 34px, radius 10px, mark 26px, gap 10px,
+   wordmark 20px. Scale them together with --hl-tile. */
+.hl-lockup {
+  --hl-tile: 34px;
+  display: inline-flex; align-items: center;
+  gap: calc(var(--hl-tile) * 10 / 34);
+}
+.hl-tile {
+  display: grid; place-items: center;
+  width: var(--hl-tile); height: var(--hl-tile);
+  border-radius: calc(var(--hl-tile) * 10 / 34);
+  background: var(--hl-accent-strong);
+}
+.hl-tile img { width: calc(var(--hl-tile) * 26 / 34 * 40 / 64); height: auto; display: block; }
+.hl-lockup .hl-wordmark { font-size: calc(var(--hl-tile) * 20 / 34); }
 
 /* ============================================================ HELPERS */
-.brand-on-dark { color: var(--brand-reverse); }
-.brand-surface-paper { background: var(--brand-bg); }
-.brand-surface-ink   { background: var(--brand-bg-dark); color: var(--brand-reverse); }
-
-/* The texture panel. background-image is set per piece from a real file. */
-.brand-panel {
-  border-radius: var(--brand-radius);
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-}
-.brand-rule { border: none; border-top: 1px solid var(--brand-line); margin: 0; }
+.hl-surface-paper { background: var(--hl-bg); }
+.hl-surface-dark  { background: var(--hl-bg-dark); color: var(--hl-reverse); }
+.hl-rule { border: none; border-top: 1px solid var(--hl-line); margin: 0; }
+/* On dark grounds the tile inverts: paper tile, GREEN mark file inside. */
+.hl-lockup--on-dark .hl-tile { background: var(--hl-reverse); }
+.hl-lockup--on-dark .hl-wordmark { color: var(--hl-reverse); }
